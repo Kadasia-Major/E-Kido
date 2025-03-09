@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - E-Kido Learning</title>
+    <link rel="stylesheet" href="../css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="profile-img-container">
+                    <img src="../images/E~Kido.gif" alt="E~Kido Learning" class="profile-img">
+                </div>
+            </div>
+            
+            <h2 class="username">Child's Name</h2>
+
+            <div class="sidebar-links">
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
+                <ul>
+                    <li class="links"><a href="index.html">Dashboard</a></li>
+                    <li class="links"><a href="lessons.html">Lessons</a></li>
+                    <li class="links"><a href="progress.html">Progress</a></li>
+                    <li class="links"><a href="contact.html">Contact</a></li>
+                    <li class="links"><a href="profile.html" class="active">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Profile Section -->
+        <div class="main-profile">
+            <header>
+                <h1 class="page-title">My Profile</h1>
+                <button class="edit-btn">Edit Profile</button>
+            </header>
+
+            <section class="profile-info">
+                <div class="info-section">
+                    <h3>Basic Information</h3>
+                    <p><strong>Name:</strong> Joseph Kadasia</p>
+                    <p><strong>Grade:</strong> 2</p>
+                    <p><strong>school:</strong> Radiance Academy Group of Schools</p>
+                    <p><strong>Bio:</strong> Enthusiastic learner and avid reader, passionate about technology and education.</p>
+                </div>
+
+                <div class="info-section">
+                    <h3>Skills</h3>
+                    <ul>
+                        <li>speak fluently</li>
+                        <li>read well</li>
+                        <li>solve multiplication quiz</li>
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h3>Recent Activity</h3>
+                    <ul>
+                        <li>Completed Lesson 5: division</li>
+                        <li>Participated in Quiz 3</li>
+                        <li>Updated profile picture</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="">
+function toggleMenu() {
+    document.querySelector('.sidebar-links').classList.toggle('active');
+}
+    </script>
+</body>
+</html>

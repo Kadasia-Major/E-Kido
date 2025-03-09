@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E~Kido Learning</title>
+<link rel="stylesheet" href="../css/registration.css">
+  <link rel="preload" href="../images/welcome.jpg" as="image">
+
+  <style>
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('../images/welcome.jpg') no-repeat center center/cover;
+      /* filter: blur(8px); */
+      z-index: -1;
+    }
+
+    .login-container {
+      height: 100%;
+    }
+
+    .input-field {
+      /* width: 100%; */
+      padding: 12px;
+      margin: 10px 0;
+ 
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Image -->
+  <div class="background"></div>
+
+  <!-- Centered Login Form -->
+  <div class="login-container">
+    <div class="login-form">
+        <h1>Welcome to <span>E~Kido</span> learning!</h1>
+        <p>"Learn, Grow, Succeed"</p>
+            <span style="font-weight: bold;">-------------Login Here--------------</span>
+      <form action="../main/index.html" method="POST">
+        <input type="text" name="username" class="input-field" placeholder="Username" required>
+        <input type="password" name="password" class="input-field" placeholder="Password" required>
+        <button type="submit" class="login-button">Login</button>
+      </form>
+      <a href="signup.html" class="loginHere forgot-password">Login Here!</a> | <a href="" class="forgot-password">Forgot Password?</a><hr>
+      <span><i><u>Powered by Kadasia & Farhan Creatives</u></i></span>
+    </div>
+
+
+</body>
+</html>

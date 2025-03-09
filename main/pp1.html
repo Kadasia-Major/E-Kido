@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Kido Learning</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preload" href="images/welcome.jpg" as="image">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .pp1 section {
+      display: none;
+    }
+    .pp1 section.active {
+      display: block;
+    }
+    .alphabet-display, .vowel-display {
+      font-size: 48px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .feedback {
+      font-size: 48px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .progress {
+      font-size: 24px;
+      text-align: center;
+      margin: 10px 0;
+    }
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <!-- Navigation Bar -->
+    <div class="topNav">
+      <section class="logo"></section>
+      <div id="greeting"></div>
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
+      <ul class="topLinks">
+        <li onclick="navigateTo('index.html')"><i class="fas fa-home"></i> Home</li>
+        <li onclick="navigateTo('lessons.html')"><i class="fas fa-book"></i> Lessons</li>
+        <li onclick="navigateTo('progress.html')"><i class="fas fa-chart-line"></i> Progress</li>
+        <li onclick="navigateTo('contact.html')"><i class="fas fa-envelope"></i> Contact</li>
+        <li onclick="navigateTo('profile.html')"><i class="fas fa-user"></i> Profile</li>
+      </ul>
+    </div>
+
+    <!-- Subject Selection Section -->
+    <div id="subject-container" class="subject-container">
+      <h2>Select a Subject</h2>
+      <div class="subject-grid">
+        <div class="subject" onclick="startLesson('English')">
+          <i class="fas fa-font"></i>
+          <span>English</span>
+        </div>
+        <div class="subject" onclick="startLesson('Maths')">
+          <i class="fas fa-calculator"></i>
+          <span>Maths</span>
+        </div>
+        <div class="subject" onclick="startLesson('Science')">
+          <i class="fas fa-flask"></i>
+          <span>Science</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PP1 Content Section -->
+    <div class="pp1">
+      <section class="english" hidden>
+        <div class="read">
+          <h1>Read after me</h1>
+          <div class="progress"></div>
+          <div class="alphabet-display"></div>
+          <div class="feedback"></div>
+          <div class="button-container">
+            <button onclick="stopSpeaking(); restartLesson()">Restart</button>
+            <button onclick="stopSpeaking(); pauseLesson()">Pause</button>
+          </div>
+        </div>
+        <div class="vowels" hidden>
+          <h1>Now, let's learn Vowels</h1>
+          <div class="progress"></div>
+          <div class="vowel-display"></div>
+          <div class="feedback"></div>
+          <div class="button-container">
+            <button onclick="stopSpeaking(); restartLesson()">Restart</button>
+            <button onclick="stopSpeaking(); pauseLesson()">Pause</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // Function to speak text with a delay (for mobile compatibility)
+    function speak(text, callback) {
+      window.speechSynthesis.cancel(); // Cancel any ongoing speech
+      let speech = new SpeechSynthesisUtterance(text);
+      speech.lang = "en-US";
+      speech.rate = 0.9;
+      speech.onend = callback;
+      setTimeout(() => {
+        window.speechSynthesis.speak(speech);
+      }, 0);
+    }
+
+    // Display greeting based on the time of day
+    function displayGreeting() {
+      const currentHour = new Date().getHours();
+      let greetingMessage;
+      if (currentHour < 12) {
+        greetingMessage = "Good Morning!";
+      } else if (currentHour < 18) {
+        greetingMessage = "Good Afternoon!";
+      } else {
+        greetingMessage = "Good Evening!";
+      }
+      document.getElementById("greeting").textContent = greetingMessage;
+      speak("Great!" + "Which subject would you love to learn today?", null);
+    }
+
+    // Alphabets and Vowels
+    const alphabets = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ");
+    const vowels = "a e i o u".split(" ");
+
+    let currentAlphabetIndex = 0;
+    let currentVowelIndex = 0;
+    let isPaused = false;
+
+    // Function to stop speaking
+    function stopSpeaking() {
+      window.speechSynthesis.cancel(); // Stop any ongoing speech
+    }
+
+    // Display the current alphabet
+    function displayAlphabet() {
+      const alphabetDisplay = document.querySelector(".alphabet-display");
+      const progressDiv = document.querySelector(".progress");
+      alphabetDisplay.textContent = alphabets[currentAlphabetIndex];
+      progressDiv.textContent = `Progress: ${currentAlphabetIndex + 1}/${alphabets.length}`;
+      speak(alphabets[currentAlphabetIndex], listenForAlphabet); // Speak the alphabet and listen for the child's response
+    }
+
+    // Display the current vowel
+    function displayVowel() {
+      const vowelDisplay = document.querySelector(".vowel-display");
+      const progressDiv = document.querySelector(".progress");
+      vowelDisplay.textContent = vowels[currentVowelIndex];
+      progressDiv.textContent = `Progress: ${currentVowelIndex + 1}/${vowels.length}`;
+      speak(vowels[currentVowelIndex], listenForVowel); // Speak the vowel and listen for the child's response
+    }
+
+    // Show feedback (thumbs-up or thumbs-down)
+    function showFeedback(isCorrect) {
+      const feedbackDiv = document.querySelector(".feedback");
+      feedbackDiv.textContent = isCorrect ? "👍" : "👎";
+      setTimeout(() => {
+        feedbackDiv.textContent = ""; // Clear feedback after 2 seconds
+      }, 2000);
+    }
+
+    // Listen for the child's speech after displaying an alphabet
+    function listenForAlphabet() {
+      if (isPaused) return; // Do not listen if the lesson is paused
+      if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+        alert("Speech recognition is not supported on this device.");
+        return;
+      }
+      let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = "en-US";
+      recognition.start();
+
+      // Set a timeout to stop listening after 2 seconds
+      setTimeout(() => {
+        recognition.stop();
+      }, 2000);
+
+      recognition.onresult = function(event) {
+        let spokenText = event.results[0][0].transcript.toLowerCase().trim();
+        if (spokenText === alphabets[currentAlphabetIndex]) {
+          // Correct alphabet spoken, show thumbs-up
+          showFeedback(true);
+          // Move to the next alphabet after a delay
+          setTimeout(() => {
+            if (currentAlphabetIndex < alphabets.length - 1) {
+              currentAlphabetIndex++;
+              displayAlphabet();
+            } else {
+              // All alphabets are read, proceed to vowels
+              document.querySelector(".read").style.display = "none";
+              document.querySelector(".vowels").style.display = "block";
+              displayVowel();
+            }
+          }, 2000); // Wait 2 seconds before moving to the next alphabet
+        } else {
+          // Incorrect alphabet spoken, show thumbs-down and try again
+          showFeedback(false);
+          speak(`Try again. Say: ${alphabets[currentAlphabetIndex]}`, listenForAlphabet);
+        }
+      };
+    }
+
+    // Listen for the child's speech after displaying a vowel
+    function listenForVowel() {
+      if (isPaused) return; // Do not listen if the lesson is paused
+      if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+        alert("Speech recognition is not supported on this device.");
+        return;
+      }
+      let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = "en-US";
+      recognition.start();
+
+      // Set a timeout to stop listening after 2 seconds
+      setTimeout(() => {
+        recognition.stop();
+      }, 2000);
+
+      recognition.onresult = function(event) {
+        let spokenText = event.results[0][0].transcript.toLowerCase().trim();
+        if (spokenText === vowels[currentVowelIndex]) {
+          // Correct vowel spoken, show thumbs-up
+          showFeedback(true);
+          // Move to the next vowel after a delay
+          setTimeout(() => {
+            if (currentVowelIndex < vowels.length - 1) {
+              currentVowelIndex++;
+              displayVowel();
+            } else {
+              alert("Congratulations! You have completed the vowels.");
+            }
+          }, 2000); // Wait 2 seconds before moving to the next vowel
+        } else {
+          // Incorrect vowel spoken, show thumbs-down and try again
+          showFeedback(false);
+          speak(`Try again. Say: ${vowels[currentVowelIndex]}`, listenForVowel);
+        }
+      };
+    }
+
+    // Restart the lesson
+    function restartLesson() {
+      stopSpeaking(); // Stop any ongoing speech
+      currentAlphabetIndex = 0;
+      currentVowelIndex = 0;
+      document.querySelector(".read").style.display = "block";
+      document.querySelector(".vowels").style.display = "none";
+      displayAlphabet();
+    }
+
+    // Pause or resume the lesson
+    function pauseLesson() {
+      stopSpeaking(); // Stop any ongoing speech
+      isPaused = !isPaused;
+      const pauseButton = document.querySelector("button[onclick='pauseLesson()']");
+      pauseButton.textContent = isPaused ? "Resume" : "Pause";
+      if (!isPaused) {
+        // Resume the lesson
+        if (document.querySelector(".read").style.display === "block") {
+          displayAlphabet();
+        } else {
+          displayVowel();
+        }
+      }
+    }
+
+    // Start the English lesson
+    function startLesson(subject) {
+      if (subject === "English") {
+        document.getElementById("subject-container").style.display = "none";
+        document.querySelector(".pp1 .english").style.display = "block";
+        restartLesson();
+      }
+    }
+
+    // Navigation helper functions
+    function toggleMenu() {
+      document.querySelector('.topLinks').classList.toggle('active');
+    }
+    function navigateTo(page) {
+      window.location.href = page;
+    }
+
+    // Run the greeting on page load
+    window.onload = function() {
+      displayGreeting(); // Display the time-based greeting
+    };
+  </script>
+</body>
+</html>

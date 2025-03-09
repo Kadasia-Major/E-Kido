@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - E-Kido Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    /* Reset basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fafafa;
+    color: #333;
+    line-height: 1.6;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header */
+header {
+    background-color: chocolate;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+/* Container to hold the content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    height: max-content;
+    padding-bottom: 0;
+}
+
+/* Section Layout */
+.contact-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Contact Info */
+.contact-info {
+    flex: 1;
+    min-width: 300px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.contact-info:hover {
+    transform: translateY(-5px);
+}
+
+.contact-info h2 {
+    font-size: 1.6rem;
+    color: #2d3a48;
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    color: #2d3a48;
+}
+
+/* Contact Form */
+.contact-form {
+    flex: 1;
+    min-width: 300px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.contact-form:hover {
+    transform: translateY(-5px);
+}
+
+.contact-form h2 {
+    font-size: 1.6rem;
+    color: #2d3a48;
+    margin-bottom: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    height: 150px;
+}
+
+.contact-form button {
+    background-color: #2d3a48;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #455a64;
+}
+
+/* Map Section */
+.map {
+    flex: 1;
+    min-width: 300px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.map iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 6px;
+}
+
+/* Social Media Links */
+.social-icons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social-icons a {
+    font-size: 2rem;
+    color: #2d3a48;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #455a64;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-section {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-info, .contact-form, .map {
+        min-width: 100%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+    Contact Us - E-Kido Learning
+</header>
+
+<div class="container">
+    <section class="contact-section">
+        <!-- Contact Info Section -->
+        <div class="contact-info">
+            <h2>Our Office</h2>
+            <p><i class="fas fa-map-marker-alt"></i> Nakuru, Ke.</p>
+            <p><i class="fas fa-phone-alt"></i> +254 746 784 313 / +254 788 076 402</p>
+            <p><i class="fas fa-envelope"></i> support@ekido.com</p>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form id="contactForm" action="javascript:void(0);" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Map Section -->
+        <!-- <div class="map">
+            <h2>Find Us On The Map</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.2516397466225!2d144.96305831531858!3d-37.81410777975173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4362cfb7eb%3A0xf2c2ad4f9472c62!2s123%20Learning%20St%2C%20Edu%20City%2C%20ABC%2045678!5e0!3m2!1sen!2sus!4v1677675867400!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+        </div> -->
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-icons">
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    </section>
+    <strong style="color: rgb(0, 0, 0); font-size: 9px; padding: 0; margin: 0;">      <span><i><u>Powered by Kadasia & Farhan Creatives</u></i></span> </strong>
+    
+</div>
+
+<script>
+    // Simple form validation
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const message = event.target.message.value;
+
+        if (name && email && message) {
+            alert("Message sent successfully!");
+        } else {
+            alert("Please fill out all fields.");
+        }
+    });
+</script>
+
+</body>
+</html>
